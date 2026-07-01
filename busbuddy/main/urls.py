@@ -8,6 +8,7 @@ urlpatterns = [
 
     # Home
     path('', views.index, name='index'),
+    path('healthz/', views.health, name='health'),
 
     # Search flow
     path('search/', views.search, name='search'),                    # search page (form)

@@ -10,6 +10,8 @@ from django.db import transaction
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.http import require_POST
 from django.contrib.auth import logout
+from django.http import JsonResponse
+from django.urls import get_resolver
 from .forms import UserRegisterForm, User
 
 
@@ -29,6 +31,18 @@ from .models import (
 
 def index(request):
     return render(request, "main/index.html")
+
+
+def health(request):
+    return JsonResponse(
+        {
+            "status": "ok",
+            "url_patterns": [
+                str(pattern.pattern)
+                for pattern in get_resolver().url_patterns
+            ],
+        }
+    )
 
 
 
