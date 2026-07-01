@@ -1,13 +1,9 @@
-databases:
-  - name: busbuddy-db
-    plan: free
-
 services:
   - type: web
-    name: busbuddy
+    name: bus-buddy-project
     env: python
     plan: free
-    buildCommand: ./build.sh
+    buildCommand: bash build.sh
     startCommand: cd busbuddy && gunicorn busbuddy.wsgi:application
     envVars:
       - key: PYTHON_VERSION
@@ -18,7 +14,3 @@ services:
         generateValue: true
       - key: DJANGO_CSRF_TRUSTED_ORIGINS
         value: https://*.onrender.com
-      - key: DATABASE_URL
-        fromDatabase:
-          name: busbuddy-db
-          property: connectionString
