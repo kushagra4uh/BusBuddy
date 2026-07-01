@@ -1,0 +1,103 @@
+{% extends 'main/base.html' %}
+{% block title %}Search Results | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Available buses</p>
+    <h1 class="page-title">Search results</h1>
+    <p class="page-text">
+      {% if schedules %}
+        Found {{ schedules|length }} bus{{ schedules|length|pluralize:"es" }}{% if origin %} from {{ origin|title }}{% endif %}{% if destination %} to {{ destination|title }}{% endif %}{% if travel_date %} on {{ travel_date }}{% endif %}.
+      {% else %}
+        No matching buses were found. Try changing your city, date, or filters.
+      {% endif %}
+    </p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="container">
+    <div class="results-toolbar">
+      <div>
+        <strong>{{ schedules|length }} result{{ schedules|length|pluralize }}</strong>
+        <p class="muted" style="margin:4px 0 0;">Prices are calculated from route length and bus type.</p>
+      </div>
+      <a class="btn ghost" href="{% url 'search' %}">Modify search</a>
+    </div>
+
+    {% if schedules %}
+      <div class="buses-list">
+        {% for schedule in schedules %}
+          <article class="card bus-card">
+            <div class="bus-main">
+              <div class="bus-title">
+                <div>
+                  <h3>{{ schedule.bus.name }}</h3>
+                  <div class="bus-route">{{ schedule.route.start }} to {{ schedule.route.end }}</div>
+                  <p>{{ schedule.bus.registration_number|default:"Registration not available" }}</p>
+                </div>
+                <span class="badge">{{ schedule.bus.bus_type }} / {{ schedule.bus.ac_type }}</span>
+              </div>
+
+              <div class="detail-grid">
+                <div class="detail"><span>Departure</span><strong>{{ schedule.time }}</strong></div>
+                <div class="detail"><span>Arrival</span><strong>{{ schedule.arrival_time }}</strong></div>
+                <div class="detail"><span>Duration</span><strong>{{ schedule.duration }}</strong></div>
+                <div class="detail"><span>Seats left</span><strong>{{ schedule.available }}</strong></div>
+              </div>
+
+              <p>
+                {% if schedule.date %}
+                  Runs on {{ schedule.date }}.
+                {% elif schedule.days %}
+                  Runs on {{ schedule.days }}.
+                {% else %}
+                  Schedule days are not specified.
+                {% endif %}
+                Driver: {{ schedule.bus.driver_name|default:"not specified" }}.
+              </p>
+            </div>
+
+            <div class="booking-box">
+              <p class="muted">Fare per seat</p>
+              <h3>Rs. {{ schedule.price }}</h3>
+              {% if user.is_authenticated %}
+                <form method="post" action="{% url 'start_booking' schedule.id %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="price_per_seat" value="{{ schedule.price }}">
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label for="seats-{{ schedule.id }}">Seats</label>
+                    <input
+                      id="seats-{{ schedule.id }}"
+                      type="number"
+                      name="seats"
+                      value="1"
+                      min="1"
+                      max="{{ schedule.available }}"
+                      data-seat-input
+                      data-price="{{ schedule.price }}"
+                      data-total-target="total-{{ schedule.id }}"
+                    >
+                  </div>
+                  <button type="submit" class="btn primary full">
+                    Book Rs. <span id="total-{{ schedule.id }}">{{ schedule.price }}</span>
+                  </button>
+                </form>
+              {% else %}
+                <a class="btn primary full" href="{% url 'login' %}">Login to book</a>
+              {% endif %}
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="card empty-state">
+        <h3>No buses found</h3>
+        <p>Try searching with broader city names, selecting a weekly operating day, or removing extra filters.</p>
+        <a href="{% url 'search' %}" class="btn primary">Search again</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

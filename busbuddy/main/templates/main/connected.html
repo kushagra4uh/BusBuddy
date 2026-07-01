@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% block title %}Tracking | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Connected journey</p>
+    <h1 class="page-title">Stay informed before the journey</h1>
+    <p class="page-text">The current project focuses on booking, schedules, and dashboards. Live GPS tracking is listed as a future enhancement in the README.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-3">
+    <article class="card">
+      <h3>Schedule visibility</h3>
+      <p>Passengers can review departure time, arrival time, route, and operating days before booking.</p>
+    </article>
+    <article class="card">
+      <h3>Seat availability</h3>
+      <p>Available seats are calculated from total seats minus active bookings for each schedule.</p>
+    </article>
+    <article class="card">
+      <h3>Booking history</h3>
+      <p>Logged-in users can review their confirmed and pending bookings from the dashboard.</p>
+    </article>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'main/base.html' %}
+{% block title %}Search Buses | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Passenger booking</p>
+    <h1 class="page-title">Find a bus for your route</h1>
+    <p class="page-text">Search routes by city, date, bus type, and seat preference. You can book after logging in.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="container">
+    <div class="card form-card search-card">
+      <form action="{% url 'search_results' %}" method="get">
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="id_source">From</label>
+            <input type="text" id="id_source" name="source" placeholder="Source city or stop" value="{{ request.GET.source|default:'' }}" required>
+          </div>
+          <div class="form-group">
+            <label for="id_destination">To</label>
+            <input type="text" id="id_destination" name="destination" placeholder="Destination city or stop" value="{{ request.GET.destination|default:'' }}" required>
+          </div>
+          <div class="form-group">
+            <label for="id_travel_date">Travel date</label>
+            <input type="date" id="id_travel_date" name="travel_date" value="{{ request.GET.travel_date|default:'' }}">
+          </div>
+          <div class="form-group">
+            <label for="id_day">Operating day</label>
+            <select id="id_day" name="Day">
+              <option value="">Any day</option>
+              <option value="Monday" {% if request.GET.Day == "Monday" %}selected{% endif %}>Monday</option>
+              <option value="Tuesday" {% if request.GET.Day == "Tuesday" %}selected{% endif %}>Tuesday</option>
+              <option value="Wednesday" {% if request.GET.Day == "Wednesday" %}selected{% endif %}>Wednesday</option>
+              <option value="Thursday" {% if request.GET.Day == "Thursday" %}selected{% endif %}>Thursday</option>
+              <option value="Friday" {% if request.GET.Day == "Friday" %}selected{% endif %}>Friday</option>
+              <option value="Saturday" {% if request.GET.Day == "Saturday" %}selected{% endif %}>Saturday</option>
+              <option value="Sunday" {% if request.GET.Day == "Sunday" %}selected{% endif %}>Sunday</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="id_bus_type">AC type</label>
+            <select id="id_bus_type" name="bus_type">
+              <option value="">Any</option>
+              <option value="AC" {% if request.GET.bus_type == "AC" %}selected{% endif %}>AC</option>
+              <option value="Non-AC" {% if request.GET.bus_type == "Non-AC" %}selected{% endif %}>Non-AC</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="id_sleeper_type">Seating</label>
+            <select id="id_sleeper_type" name="sleeper_type">
+              <option value="">Any</option>
+              <option value="Sleeper" {% if request.GET.sleeper_type == "Sleeper" %}selected{% endif %}>Sleeper</option>
+              <option value="Seater" {% if request.GET.sleeper_type == "Seater" %}selected{% endif %}>Seater</option>
+            </select>
+          </div>
+        </div>
+
+        <label class="checkbox-row">
+          <input type="checkbox" id="id_is_woman_safe" name="is_woman_safe" {% if request.GET.is_woman_safe %}checked{% endif %}>
+          Prefer routes with driver information available
+        </label>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Search buses</button>
+          <a href="{% url 'search' %}" class="btn ghost">Reset</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

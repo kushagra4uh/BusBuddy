@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% block title %}Start Booking | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Booking</p>
+    <h1 class="page-title">Start booking</h1>
+    <p class="page-text">Select seats from an available schedule and continue to payment.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="narrow">
+    <div class="card form-card">
+      <p><strong>Bus:</strong> {{ schedule.bus.bus_name }}</p>
+      <p><strong>Available seats:</strong> {{ available }}</p>
+      <form method="post" style="margin-top:18px;">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="seat_number">Seat number</label>
+          <select id="seat_number" name="seat_number">
+            {% for seat in seat_list %}
+              <option value="{{ seat }}">{{ seat }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <button type="submit" class="btn primary">Continue to payment</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

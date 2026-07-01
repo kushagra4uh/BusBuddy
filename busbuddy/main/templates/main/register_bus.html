@@ -1,0 +1,92 @@
+{% extends 'main/base.html' %}
+{% block title %}Register Bus | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Operator dashboard</p>
+    <h1 class="page-title">Register a bus and schedule</h1>
+    <p class="page-text">Add the route, stops, timings, and seat capacity so passengers can discover your bus.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="container">
+    <div class="card form-card">
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="bus_name">Bus name</label>
+            <input type="text" id="bus_name" name="bus_name" placeholder="Example: City Express" required>
+          </div>
+          <div class="form-group">
+            <label for="bus_number">Registration number</label>
+            <input type="text" id="bus_number" name="bus_number" placeholder="Example: UP32 AB 1234" required>
+          </div>
+          <div class="form-group">
+            <label for="from_city">From</label>
+            <input type="text" id="from_city" name="from_city" placeholder="Source city" required>
+          </div>
+          <div class="form-group">
+            <label for="to_city">To</label>
+            <input type="text" id="to_city" name="to_city" placeholder="Destination city" required>
+          </div>
+          <div class="form-group">
+            <label for="total_seats">Total seats</label>
+            <input type="number" id="total_seats" name="total_seats" min="1" placeholder="40" required>
+          </div>
+          <div class="form-group">
+            <label for="departure_time">Departure time</label>
+            <input type="time" id="departure_time" name="departure_time" required>
+          </div>
+          <div class="form-group">
+            <label for="arrival_time">Arrival time</label>
+            <input type="time" id="arrival_time" name="arrival_time" required>
+          </div>
+          <div class="form-group">
+            <label for="specific_date">Specific date</label>
+            <input type="date" id="specific_date" name="specific_date">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="field-label">Days of operation</span>
+          <div class="day-grid">
+            <label><input type="checkbox" name="days" value="Mon"> Monday</label>
+            <label><input type="checkbox" name="days" value="Tue"> Tuesday</label>
+            <label><input type="checkbox" name="days" value="Wed"> Wednesday</label>
+            <label><input type="checkbox" name="days" value="Thu"> Thursday</label>
+            <label><input type="checkbox" name="days" value="Fri"> Friday</label>
+            <label><input type="checkbox" name="days" value="Sat"> Saturday</label>
+            <label><input type="checkbox" name="days" value="Sun"> Sunday</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <span class="field-label">Stops</span>
+          <div id="stops-container" class="stack">
+            <div class="form-grid stop-field">
+              <div class="form-group">
+                <label>Stop name</label>
+                <input type="text" name="stops[]" placeholder="Intermediate stop">
+              </div>
+              <div class="form-group">
+                <label>Stop time</label>
+                <input type="time" name="stop_times[]">
+              </div>
+            </div>
+          </div>
+          <button type="button" id="add-stop" class="btn ghost small">Add another stop</button>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Register bus</button>
+          <a href="{% url 'conductor_dashboard' %}" class="btn ghost">View dashboard</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

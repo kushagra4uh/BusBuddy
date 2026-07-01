@@ -1,0 +1,24 @@
+{% extends "main/base.html" %}
+{% block title %}Conductor Registration | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Operator setup</p>
+    <h1 class="page-title">Register as a conductor</h1>
+    <p class="page-text">Create an operator profile before adding buses and schedules.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="narrow">
+    <div class="card form-card">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn primary">Save conductor profile</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

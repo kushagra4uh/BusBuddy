@@ -1,0 +1,32 @@
+{% extends 'main/base.html' %}
+{% block title %}Use Cases | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Use cases</p>
+    <h1 class="page-title">Built for common travel scenarios</h1>
+    <p class="page-text">BusBuddy can be used for city routes, college trips, private operators, and basic fleet booking workflows.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-3">
+    <article class="card">
+      <div class="feature-icon">C</div>
+      <h3>College routes</h3>
+      <p>Manage recurring routes for students with weekly schedules and route stops.</p>
+    </article>
+    <article class="card">
+      <div class="feature-icon">O</div>
+      <h3>Private operators</h3>
+      <p>Allow conductors to list buses and make trips visible to passengers.</p>
+    </article>
+    <article class="card">
+      <div class="feature-icon">T</div>
+      <h3>Tour bookings</h3>
+      <p>Use date-based schedules for one-time trips, tours, or event transport.</p>
+    </article>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% block title %}About | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">About the project</p>
+    <h1 class="page-title">A practical Django bus booking system</h1>
+    <p class="page-text">BusBuddy was built as a college submission project to demonstrate authentication, database models, forms, route search, booking, and dashboard workflows.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container grid-2">
+    <article class="card">
+      <h3>Project objective</h3>
+      <p>To create a working bus booking platform where passengers can search routes and operators can register buses with schedules.</p>
+    </article>
+    <article class="card">
+      <h3>Technology focus</h3>
+      <p>The project uses Django, SQLite, Django templates, static CSS/JavaScript, authentication, and server-rendered forms.</p>
+    </article>
+  </div>
+</section>
+{% endblock %}

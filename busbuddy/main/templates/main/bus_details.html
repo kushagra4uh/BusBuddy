@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block title %}Bus Details | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Bus setup</p>
+    <h1 class="page-title">{{ bus.bus_name }}</h1>
+    <p class="page-text">Complete route and schedule information for this bus.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="narrow">
+    <div class="card form-card">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn primary">Save bus details</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

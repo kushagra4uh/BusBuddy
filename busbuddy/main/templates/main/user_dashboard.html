@@ -1,0 +1,53 @@
+{% extends "main/base.html" %}
+{% block title %}My Dashboard | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Passenger dashboard</p>
+    <h1 class="page-title">Your bookings</h1>
+    <p class="page-text">Track confirmed and pending bookings created through the BusBuddy flow.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="container grid-2">
+    <div class="card">
+      <h3>Booking history</h3>
+      {% if bookings %}
+        <div class="stack" style="margin-top:16px;">
+          {% for b in bookings %}
+            <div class="detail">
+              <strong>{{ b.schedule.route.origin }} to {{ b.schedule.route.destination }}</strong>
+              <p>Bus: {{ b.schedule.bus.bus_name }} | Seats: {{ b.seats }}</p>
+              <p>Status: {% if b.paid %}Confirmed{% else %}Pending payment{% endif %}</p>
+              <p>{{ b.created_at }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p style="margin-top:10px;">You have not made any bookings yet.</p>
+        <div class="form-actions">
+          <a class="btn primary" href="{% url 'search' %}">Find buses</a>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="card">
+      <h3>Frequent routes</h3>
+      {% if frequent_routes %}
+        <div class="stack" style="margin-top:16px;">
+          {% for route, count in frequent_routes %}
+            <div class="detail">
+              <strong>{{ route.0 }} to {{ route.1 }}</strong>
+              <p>Booked {{ count }} time{{ count|pluralize }}</p>
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p style="margin-top:10px;">Frequent route insights will appear after you make bookings.</p>
+      {% endif %}
+    </div>
+  </div>
+</section>
+{% endblock %}

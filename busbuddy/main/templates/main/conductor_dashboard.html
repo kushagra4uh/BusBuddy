@@ -1,0 +1,64 @@
+{% extends "main/base.html" %}
+{% block title %}Conductor Dashboard | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Operator area</p>
+    <h1 class="page-title">Conductor dashboard</h1>
+    <p class="page-text">Review your listed buses, active schedules, seat availability, and route details.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="container">
+    <div class="results-toolbar">
+      <div>
+        <strong>{{ buses|length }} bus{{ buses|length|pluralize }} registered</strong>
+        <p class="muted" style="margin:4px 0 0;">Use this page as the operator management view.</p>
+      </div>
+      <a href="{% url 'register_bus' %}" class="btn primary">Register a new bus</a>
+    </div>
+
+    {% if buses %}
+      <div class="dashboard-list">
+        {% for bus_data in buses %}
+          <article class="card">
+            <div class="bus-title">
+              <div>
+                <h3>{{ bus_data.bus.bus_name }}</h3>
+                <p>{{ bus_data.bus.registration_number }} | {{ bus_data.bus.total_seats }} seats | {{ bus_data.bus.ac_type }} {{ bus_data.bus.bus_type }}</p>
+              </div>
+              <span class="badge">Operator bus</span>
+            </div>
+
+            {% if bus_data.schedules %}
+              <div class="table-like" style="margin-top:18px;">
+                {% for schedule in bus_data.schedules %}
+                  <div class="table-row">
+                    <div>
+                      <strong>{{ schedule.route.start }} to {{ schedule.route.end }}</strong>
+                      <div class="muted">{{ schedule.raw_schedule.days|default:"Date based trip" }}</div>
+                    </div>
+                    <div><span class="muted">Departure</span><br><strong>{{ schedule.time }}</strong></div>
+                    <div><span class="muted">Arrival</span><br><strong>{{ schedule.arrival_time }}</strong></div>
+                    <div><span class="muted">Seats left</span><br><strong>{{ schedule.available }}</strong></div>
+                  </div>
+                {% endfor %}
+              </div>
+            {% else %}
+              <p style="margin-top:16px;">No schedules are attached to this bus yet.</p>
+            {% endif %}
+          </article>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="card empty-state">
+        <h3>No buses yet</h3>
+        <p>Register your first bus to create routes and make it available in passenger search.</p>
+        <a href="{% url 'register_bus' %}" class="btn primary">Register bus</a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock %}

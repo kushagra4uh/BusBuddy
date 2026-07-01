@@ -1,0 +1,29 @@
+{% extends 'main/base.html' %}
+{% block title %}Payment | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Payment simulation</p>
+    <h1 class="page-title">Confirm your booking</h1>
+    <p class="page-text">This project uses a simulated payment step to complete the booking workflow.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="narrow">
+    <div class="card form-card">
+      <div class="detail-grid" style="grid-template-columns:1fr 1fr;">
+        <div class="detail"><span>Bus</span><strong>{{ payment.booking.schedule.bus.bus_name }}</strong></div>
+        <div class="detail"><span>Seats</span><strong>{{ payment.booking.seats }}</strong></div>
+        <div class="detail"><span>Route</span><strong>{{ payment.booking.schedule.route.origin }} to {{ payment.booking.schedule.route.destination }}</strong></div>
+        <div class="detail"><span>Amount</span><strong>Rs. {{ payment.amount }}</strong></div>
+      </div>
+      <form method="post" style="margin-top:22px;">
+        {% csrf_token %}
+        <button type="submit" class="btn primary full">Mark payment as successful</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

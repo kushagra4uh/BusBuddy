@@ -1,0 +1,24 @@
+{% extends 'main/base.html' %}
+{% block title %}Add Bus | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Operator setup</p>
+    <h1 class="page-title">Add a bus</h1>
+    <p class="page-text">This form captures basic bus information before route and schedule details.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="narrow">
+    <div class="card form-card">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn primary">Continue</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

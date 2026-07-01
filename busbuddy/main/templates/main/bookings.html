@@ -1,0 +1,22 @@
+{% extends 'main/base.html' %}
+{% block title %}Bookings | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">Quick access</p>
+    <h1 class="page-title">Start a booking</h1>
+    <p class="page-text">Use the route search to find active buses and create a booking.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="narrow">
+    <div class="card empty-state">
+      <h3>Search before booking</h3>
+      <p>Bookings are created from a selected schedule so seat availability and fare can be calculated correctly.</p>
+      <a class="btn primary" href="{% url 'search' %}">Search buses</a>
+    </div>
+  </div>
+</section>
+{% endblock %}

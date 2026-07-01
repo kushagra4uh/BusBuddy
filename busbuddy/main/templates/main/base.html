@@ -1,0 +1,92 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}BusBuddy{% endblock %}</title>
+  <meta name="description" content="BusBuddy is a Django-based bus booking and route management system.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'main/style.css' %}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="{% url 'index' %}" aria-label="BusBuddy home">
+        <span class="logo-mark">B</span>
+        <span class="logo-text">BusBuddy</span>
+      </a>
+
+      <nav class="main-nav" aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a class="nav-btn" href="{% url 'search' %}">Find buses</a></li>
+          <li><a class="nav-btn" href="{% url 'register_bus' %}">List a bus</a></li>
+          <li><a class="nav-btn" href="{% url 'sectors' %}">Use cases</a></li>
+          <li><a class="nav-btn" href="{% url 'connected' %}">Tracking</a></li>
+          <li><a class="nav-btn" href="{% url 'who_we_are' %}">About</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        {% if user.is_authenticated %}
+          <a class="btn ghost small" href="{% url 'user_dashboard' %}">{{ user.first_name|default:user.username }}</a>
+          <a class="btn subtle small" href="{% url 'logout' %}">Logout</a>
+        {% else %}
+          <a class="btn ghost small" href="{% url 'login' %}">Login</a>
+          <a class="btn primary small" href="{% url 'register' %}">Sign up</a>
+        {% endif %}
+        <button id="mobile-toggle" class="hamburger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Open navigation">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+
+    <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile navigation">
+      <ul>
+        <li><a class="nav-btn" href="{% url 'search' %}">Find buses</a></li>
+        <li><a class="nav-btn" href="{% url 'register_bus' %}">List a bus</a></li>
+        <li><a class="nav-btn" href="{% url 'sectors' %}">Use cases</a></li>
+        <li><a class="nav-btn" href="{% url 'connected' %}">Tracking</a></li>
+        <li><a class="nav-btn" href="{% url 'who_we_are' %}">About</a></li>
+        {% if user.is_authenticated %}
+          <li><a class="nav-btn" href="{% url 'user_dashboard' %}">Dashboard</a></li>
+          <li><a class="nav-btn" href="{% url 'logout' %}">Logout</a></li>
+        {% else %}
+          <li><a class="nav-btn" href="{% url 'login' %}">Login</a></li>
+          <li><a class="nav-btn" href="{% url 'register' %}">Sign up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </header>
+
+  {% if messages %}
+    <div class="message-list" role="status">
+      {% for message in messages %}
+        <div class="message {{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>
+        <strong>BusBuddy</strong>
+        <p class="muted">A Django bus booking project for college submission and portfolio demos.</p>
+      </div>
+      <div class="footer-links">
+        <a href="{% url 'search' %}">Search</a>
+        <a href="{% url 'register_bus' %}">Operators</a>
+        <a href="{% url 'who_we_are' %}">About</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="{% static 'main/script.js' %}"></script>
+</body>
+</html>

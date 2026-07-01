@@ -1,0 +1,53 @@
+{% extends 'main/base.html' %}
+{% block title %}Register | BusBuddy{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+  <div class="container">
+    <p class="eyebrow">New passenger</p>
+    <h1 class="page-title">Create your account</h1>
+    <p class="page-text">Register once and use the same account for booking history and payment confirmation.</p>
+  </div>
+</section>
+
+<section class="page-shell">
+  <div class="narrow">
+    <div class="card form-card">
+      <form method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+          <div class="errors">{{ form.errors }}</div>
+        {% endif %}
+        <div class="form-grid">
+          <div class="form-group">
+            {{ form.fullname.label_tag }}
+            {{ form.fullname }}
+          </div>
+          <div class="form-group">
+            {{ form.phone.label_tag }}
+            {{ form.phone }}
+          </div>
+        </div>
+        <div class="form-group">
+          {{ form.email.label_tag }}
+          {{ form.email }}
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            {{ form.password1.label_tag }}
+            {{ form.password1 }}
+          </div>
+          <div class="form-group">
+            {{ form.password2.label_tag }}
+            {{ form.password2 }}
+          </div>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Create account</button>
+          <a class="btn ghost" href="{% url 'login' %}">Already registered?</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

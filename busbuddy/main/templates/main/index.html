@@ -1,0 +1,101 @@
+{% extends 'main/base.html' %}
+{% block title %}BusBuddy | Bus Booking System{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <p class="eyebrow">College project portfolio</p>
+      <h1 class="hero-title">Book buses, manage routes, and track bookings in one place.</h1>
+      <p class="hero-text">
+        BusBuddy is a Django-based bus booking system for passengers and conductors.
+        Search routes, register buses, manage schedules, and simulate ticket payments through a simple web interface.
+      </p>
+      <div class="hero-ctas">
+        <a class="btn primary" href="{% url 'search' %}">Search buses</a>
+        <a class="btn ghost" href="{% url 'register_bus' %}">Register a bus</a>
+      </div>
+
+      <div class="stats">
+        <div class="stat">
+          <strong>3</strong>
+          <span>User flows</span>
+        </div>
+        <div class="stat">
+          <strong>7</strong>
+          <span>Route filters</span>
+        </div>
+        <div class="stat">
+          <strong>100%</strong>
+          <span>Django powered</span>
+        </div>
+      </div>
+    </div>
+
+    <aside class="hero-panel" aria-label="Featured route">
+      <div class="panel-map">
+        <p class="eyebrow" style="color:#fff; margin:0;">Featured route</p>
+        <div class="route-line">
+          <span class="route-dot"></span>
+          <span class="route-track"></span>
+          <span class="route-dot"></span>
+        </div>
+      </div>
+      <div class="panel-body">
+        <div class="route-card-title">
+          <div>
+            <h3>Meerut to Kanpur</h3>
+            <p>Sample route with schedule, seats, and price calculation.</p>
+          </div>
+          <span class="badge">Demo</span>
+        </div>
+        <div class="metric-row">
+          <div class="metric"><span>Duration</span><strong>5h 20m</strong></div>
+          <div class="metric"><span>Seats</span><strong>40</strong></div>
+          <div class="metric"><span>Fare</span><strong>Rs. 445</strong></div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">What the system supports</h2>
+      <p class="section-text">The project covers both passenger booking and bus operator management flows.</p>
+    </div>
+
+    <div class="grid-3">
+      <article class="card">
+        <div class="feature-icon">1</div>
+        <h3>Passenger search</h3>
+        <p>Passengers can search by source, destination, date, operating day, AC type, seating type, and safety preference.</p>
+      </article>
+      <article class="card">
+        <div class="feature-icon">2</div>
+        <h3>Bus registration</h3>
+        <p>Conductors can list buses with route details, stops, timings, total seats, and weekly or date-based schedules.</p>
+      </article>
+      <article class="card">
+        <div class="feature-icon">3</div>
+        <h3>Booking workflow</h3>
+        <p>The app creates bookings, calculates available seats, simulates payment, and stores booking history for users.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="section" style="padding-top:0;">
+  <div class="container grid-2">
+    <div class="card">
+      <h3>For passengers</h3>
+      <p>Find buses quickly, review route timings, choose seat count, and confirm your booking after login.</p>
+    </div>
+    <div class="card">
+      <h3>For conductors</h3>
+      <p>Create a conductor profile, register buses, and view schedules from a dedicated conductor dashboard.</p>
+    </div>
+  </div>
+</section>
+{% endblock %}
