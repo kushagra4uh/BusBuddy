@@ -4,13 +4,23 @@
 
 No. GitHub can store the code, but GitHub Pages only hosts static files such as HTML, CSS, and JavaScript. BusBuddy is a Django backend project, so the backend will not run on GitHub Pages.
 
-Correct setup:
+Recommended production setup:
 
 ```text
 GitHub = code repository
 Render = live Django backend hosting
 PostgreSQL = production database
 ```
+
+Current free demo setup:
+
+```text
+GitHub = code repository
+Render = live Django backend hosting
+SQLite = demo database inside the web service
+```
+
+The current Render free account could not create another free PostgreSQL database, so the deployed demo uses SQLite. This is acceptable for a college demo link, but PostgreSQL is recommended for real production use.
 
 Official references:
 
@@ -19,7 +29,7 @@ Official references:
 
 ## Files Added for Deployment
 
-- `render.yaml` - Render blueprint configuration
+- `render.yaml` - Render blueprint configuration for the web service
 - `build.sh` - Render build script
 - `runtime.txt` - Python version
 - `.env.example` - sample environment variables
@@ -77,7 +87,6 @@ Replace `YOUR_USERNAME` with your GitHub username.
 Render will create:
 
 - A Django web service
-- A PostgreSQL database
 - Environment variables from `render.yaml`
 
 ## Step 3: Wait for Build
@@ -110,23 +119,30 @@ After deployment, Render gives a URL like:
 https://busbuddy.onrender.com
 ```
 
-That is the permanent public link you can put in your resume.
+The current deployed URL is:
+
+```text
+https://bus-buddy-project-ub04.onrender.com
+```
+
+That is the public link you can put in your resume.
 
 ## Will the Backend Work on Render?
 
-Yes, the backend should work on Render because:
+Yes, the backend works on Render because:
 
 - Render runs Python web apps.
 - The project uses Gunicorn for production.
 - Static files are served with WhiteNoise.
-- PostgreSQL is configured through `DATABASE_URL`.
+- SQLite is available for the current demo deployment.
+- PostgreSQL can be configured later through `DATABASE_URL`.
 - `ALLOWED_HOSTS` and `CSRF_TRUSTED_ORIGINS` support Render domains.
 
 ## Important Production Notes
 
 - The local SQLite database is not uploaded.
-- Render will use PostgreSQL.
-- You need to create new demo data after deployment.
+- The current free deployment uses SQLite.
+- You may need to create new demo data after redeploys because SQLite is not a managed production database.
 - The first request may be slow on Render free plan because free services can sleep.
 - If you change code, push to GitHub and Render will redeploy.
 

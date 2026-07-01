@@ -11,6 +11,16 @@ The application has two main user flows:
 
 The project uses Django templates and a custom responsive CSS layout, so it runs as a full-stack Python web application without needing a separate frontend framework.
 
+## Live Demo
+
+Render deployment:
+
+```text
+https://bus-buddy-project-ub04.onrender.com
+```
+
+Note: this free Render deployment uses SQLite inside the web service for demo purposes. For a production version, connect a PostgreSQL database through `DATABASE_URL`.
+
 ## Features
 
 - User registration and login
